@@ -1,5 +1,6 @@
 import requests
 import logging
+from parser import parse_html
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -13,7 +14,19 @@ logging.basicConfig(
 )
 
 def fetch_website(url):
-    header = {"User-Agent": "Mozilla/5.0"}
+    """
+    fetches a website and returns its homepage's title and descrition
+
+    Args:
+        -url (str): the website's URL
+
+    Returns:
+        - dict: a dicttionary containing the following data
+            - "title" (str | None): the page's title
+            - "tescription" (str | None): the page's description
+    """
+
+    header = {"User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}
     try:
         result = requests.get(
             url, 
@@ -21,7 +34,7 @@ def fetch_website(url):
             timeout=10)
         result.raise_for_status()
         logging.info(f"fetching {url} suceeded")
-        return result.text
+        return parse_html(result.text)
 
     except requests.exceptions.HTTPError as e:
         logging.error(f"fetching {url} resulted in the following error: {e} (status code: {result.status_code})")
