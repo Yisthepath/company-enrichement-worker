@@ -1,10 +1,10 @@
-def is_duplicate_link(items, link):
+def is_website_duplicate(items, website):
     """
-    determines if a link already appears in a items
+    determines if a website is a duplicate
 
     -Args:
-        - items (list): the list containing links
-        - link (str) : the link to be checked
+        - items (list): the list containing websites
+        - website (str) : the website to be checked
     
     -Returns:
         - is_duplicate (boolean): returns True if link is a duplicate and False otherwise
@@ -16,7 +16,7 @@ def is_duplicate_link(items, link):
     is_duplicate = False
 
     for e in items:
-        if e["link"] == link:
+        if e["company_website"] == website:
             is_duplicate = True
             break
     

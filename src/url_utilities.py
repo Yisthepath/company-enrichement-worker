@@ -123,7 +123,7 @@ def normalize_url(url):
 
     path = parsed.path.strip()
 
-    if path != "/" and path.endswith("/"):
+    if path.endswith("/"):
         path = path[:-1]
 
     parameters = parsed.params

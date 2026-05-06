@@ -3,6 +3,9 @@ import logging
 from loader import load_companies_csv
 from json_output import output_json
 from fetch_website import fetch_website
+from url_utilities import normalize_url
+from clean_data import clean_text, normalize_company_name
+from is_website_duplicate import is_website_duplicate
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -25,10 +28,10 @@ companies_data = []
 #Log companies that have a valid website, log errors and create companies_data dictionary
 for i in range(len(companies)):
     try:
-        company_website = companies[i]["website"].strip()
-        company_name = clean_company_name(companies[i]["company_name"])
+        company_website = normalize_url(companies[i]["website"])
+        company_name = normalize_company_name(companies[i]["company_name"])
 
-        if isinstance(company_website, str) and company_website.find("https://") != -1:
+        if company_website and not is_website_duplicate(companies_data, company_website):
             companies_data.append({"company_name": company_name, "company_website": company_website})
             logging.info(f"{clean_company_name(company_name)} was processed")
         else:

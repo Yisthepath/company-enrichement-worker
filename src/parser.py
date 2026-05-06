@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from url_utilities import make_absolute_url
 from is_url_useful import is_url_useful
 from is_duplicate_link import is_duplicate_link
+from clean_data import clean_text, deduplicate_list
 
 def parse_html(html, url):
     """
@@ -32,16 +33,16 @@ def parse_html(html, url):
 
     if title_tag != None:
         page_title = title_tag
-        page_title = str(page_title.get_text(strip=True))
+        page_title = clean_text(str(page_title.get_text(strip=True)))
     else:
         page_title = None
 
     if description_tag!= None:
         page_description = description_tag
-        page_description = str(page_description.get("content")).strip()
+        page_description = clean_text(str(page_description.get("content")).strip())
     elif description_og_tag:
         page_description = description_og_tag
-        page_description = str(page_description.get("content")).strip()
+        page_description = clean_text(str(page_description.get("content")).strip())
     else:
         page_description = None
     
@@ -50,6 +51,8 @@ def parse_html(html, url):
             page_headers.append(str(tag.get_text(strip=True)))
     else:
         page_headers = None
+
+    page_headers = deduplicate_list(page_headers)
 
     if a_tags != []:
         for tag in a_tags:
