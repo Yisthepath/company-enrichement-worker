@@ -1,15 +1,19 @@
-def is_path_useful(path):
+from urllib.parse import urlparse, parse_qsl
+def is_url_useful(url):
     """
-    determines if the path of a url is likely useful for the purposes of this project
+    determines if a url is likely useful for the purposes of this project
 
     Args:
-        -path (str): a url's path
+        -url (str): the input url
 
     Returns:
-        - is_useful (boolean): True if the path is useful False otherwise
+        - is_useful (boolean): True if the url is useful False otherwise
     """
        
-    if path.strip() == "":
+    parsed = urlparse(url)
+    path = parsed.path
+
+    if not path or path.strip() == "":
         return False
 
     is_useful = False

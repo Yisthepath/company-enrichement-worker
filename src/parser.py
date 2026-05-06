@@ -1,18 +1,22 @@
 from bs4 import BeautifulSoup
+from url_utilities import make_absolute_url
+from is_url_useful import is_url_useful
+from is_duplicate_link import is_duplicate_link
 
-def parse_html(html):
+def parse_html(html, url):
     """
     parses through html code with and returns the title and description
 
     Args:
         -html (str): html code to be parsed through
+        - url (str): the url of the source page
 
     Returns:
         - dict: a dicttionary containing the following data
             - "title" (str | None): the page's title
             - "description" (str | None): the page's description
             - "headers" (list | None): the page's headers
-            - "links" (list | None)": the page's links
+            - "links" (list | None)": the page's useful links
     """
 
     parsed_dict = {}
@@ -49,18 +53,17 @@ def parse_html(html):
 
     if a_tags != []:
         for tag in a_tags:
-            href = tag.get("href")
+            href = str(tag.get("href"))
+            href = make_absolute_url(url, href)
 
-            if href != None:
-                href = str(href).strip()
-            else:
-                href = None
-
-            page_links.append(
+            if href and is_url_useful(href) and not is_duplicate_link(page_links, href):
+                page_links.append(
                 {
                     "text": str(tag.get_text(strip=True)), 
                     "link": href
                 })
+            else:
+                href = None
     else:
         page_links = None
 

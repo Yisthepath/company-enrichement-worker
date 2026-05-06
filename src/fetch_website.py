@@ -34,7 +34,7 @@ def fetch_website(url):
             timeout=10)
         result.raise_for_status()
         logging.info(f"fetching {url} suceeded")
-        return parse_html(result.text)
+        return parse_html(result.text, url)
 
     except requests.exceptions.HTTPError as e:
         logging.error(f"fetching {url} resulted in the following error: {e} (status code: {result.status_code})")
