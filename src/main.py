@@ -39,7 +39,7 @@ for i in range(len(companies)):
 
 #add wesite text to companies_data
 for company in companies_data:
-    company["company_text"] = fetch_website(company["company_website"])
+    company["website_content"] = fetch_website(company["company_website"])
 
 #convert the dictionary to a json object and write it into JSON file
 output_json("output-data.json", companies_data)
