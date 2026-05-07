@@ -1,11 +1,5 @@
 from cleaner import clean_company_name
 import logging
-from loader import load_companies_csv
-from json_output import output_json
-from fetch_website import fetch_website
-from url_utilities import normalize_url
-from clean_data import clean_text, normalize_company_name
-from is_website_duplicate import is_website_duplicate
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -17,6 +11,13 @@ logging.basicConfig(
     
     datefmt="%Y-%m-%d %H:%M",
 )
+
+from loader import load_companies_csv
+from json_output import output_json
+from fetch_website import fetch_website
+from url_utilities import normalize_url
+from clean_data import clean_text, normalize_company_name
+from is_website_duplicate import is_website_duplicate
 
 logging.info("The worker started")
 

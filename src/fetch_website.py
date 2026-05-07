@@ -1,8 +1,8 @@
 import requests
 import logging
-from parser import parse_html
 
 logging.basicConfig(
+    force=True,
     level=logging.DEBUG,
     filename="requests.log",
     encoding="utf-8",
@@ -12,6 +12,8 @@ logging.basicConfig(
     
     datefmt="%Y-%m-%d %H:%M",
 )
+
+from parser import parse_html
 
 def fetch_website(url):
     """
@@ -23,7 +25,9 @@ def fetch_website(url):
     Returns:
         - dict: a dicttionary containing the following data
             - "title" (str | None): the page's title
-            - "tescription" (str | None): the page's description
+            - "description" (str | None): the page's description
+            - headers (str | None): the page's headers
+            - useful links (str | None): useful links found in the page
     """
 
     header = {"User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"}

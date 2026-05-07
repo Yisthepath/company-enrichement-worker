@@ -3,6 +3,8 @@ from url_utilities import make_absolute_url
 from is_url_useful import is_url_useful
 from is_duplicate_link import is_duplicate_link
 from clean_data import clean_text, deduplicate_list
+import re
+from email_extractor import email_extractor
 
 def parse_html(html, url):
     """
@@ -13,7 +15,7 @@ def parse_html(html, url):
         - url (str): the url of the source page
 
     Returns:
-        - dict: a dicttionary containing the following data
+        - parsed_dict: a dicttionary containing the following data
             - "title" (str | None): the page's title
             - "description" (str | None): the page's description
             - "headers" (list | None): the page's headers
@@ -74,5 +76,9 @@ def parse_html(html, url):
     parsed_dict["description"] = page_description
     parsed_dict["headers"] = page_headers
     parsed_dict["links"] = page_links
+
+    public_emails = email_extractor(parsed_dict["links"])
+
+    parsed_dict["public_emails"] = public_emails
 
     return parsed_dict
