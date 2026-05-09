@@ -1,4 +1,6 @@
 from urllib.parse import urlparse, parse_qsl
+
+
 def is_url_useful(url):
     """
     determines if a url is likely useful for the purposes of this project
@@ -9,7 +11,7 @@ def is_url_useful(url):
     Returns:
         - is_useful (boolean): True if the url is useful False otherwise
     """
-       
+
     parsed = urlparse(url)
     path = parsed.path
 
@@ -30,7 +32,6 @@ def is_url_useful(url):
         "/vision",
         "/values",
         "/what-we-do",
-
         # 2. Careers / hiring pages
         "/careers",
         "/jobs",
@@ -43,7 +44,6 @@ def is_url_useful(url):
         "/opportunities",
         "/talent",
         "/life-at-company",
-
         # 3. Team / leadership pages
         "/team",
         "/our-team",
@@ -54,7 +54,6 @@ def is_url_useful(url):
         "/people",
         "/board",
         "/advisors",
-
         # 4. Contact pages
         "/contact",
         "/contact-us",
@@ -84,7 +83,6 @@ def is_url_useful(url):
         "/office-locations",
         "/where-we-are",
         "/global-offices",
-
         # 5. Funding / investor / press-release pages
         "/news",
         "/press",

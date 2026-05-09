@@ -9,8 +9,8 @@ def normalize_domain(domain):
     Returns:
         - domain (str): a normalized version of the given domain
     """
-       
+
     if domain.startswith("www."):
         domain = domain[4:]
-    
+
     return domain

@@ -1,13 +1,14 @@
 from urllib.parse import parse_qsl, urlencode
 
+
 def remove_tracking_queries(queries):
     """
-        removes tracking queries from a url's queries
+    removes tracking queries from a url's queries
 
-        Args:
-            - queries (str): a url's queries
-        Returns:
-            - cleaned_queries (list): a cleaned version of the queries
+    Args:
+        - queries (str): a url's queries
+    Returns:
+        - cleaned_queries (list): a cleaned version of the queries
     """
 
     query_pairs = parse_qsl(queries)
@@ -30,7 +31,7 @@ def remove_tracking_queries(queries):
     for key, value in query_pairs:
         if key.lower() not in tracking_queries:
             cleaned_query_pairs.append((key, value))
-    
+
     cleaned_queries = urlencode(cleaned_query_pairs)
-    
+
     return cleaned_queries

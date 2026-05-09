@@ -6,6 +6,7 @@ from clean_data import clean_text, deduplicate_list
 import re
 from email_extractor import email_extractor
 
+
 def parse_html(html, url):
     """
     parses through html code with and returns the title and description
@@ -25,8 +26,8 @@ def parse_html(html, url):
     parsed_dict = {}
     soup = BeautifulSoup(html, "html.parser")
     title_tag = soup.find("title")
-    description_tag = soup.find("meta", attrs= {"name": "description"})
-    description_og_tag = soup.find("meta", attrs= {"property": "og:description"})
+    description_tag = soup.find("meta", attrs={"name": "description"})
+    description_og_tag = soup.find("meta", attrs={"property": "og:description"})
     header_tags = soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6"])
     a_tags = soup.find_all("a")
 
@@ -39,7 +40,7 @@ def parse_html(html, url):
     else:
         page_title = None
 
-    if description_tag!= None:
+    if description_tag != None:
         page_description = description_tag
         page_description = clean_text(str(page_description.get("content")).strip())
     elif description_og_tag:
@@ -47,7 +48,7 @@ def parse_html(html, url):
         page_description = clean_text(str(page_description.get("content")).strip())
     else:
         page_description = None
-    
+
     if list(header_tags) != []:
         for tag in header_tags:
             page_headers.append(str(tag.get_text(strip=True)))
@@ -62,11 +63,7 @@ def parse_html(html, url):
             href = make_absolute_url(url, href)
 
             if href and is_url_useful(href) and not is_duplicate_link(page_links, href):
-                page_links.append(
-                {
-                    "text": str(tag.get_text(strip=True)), 
-                    "link": href
-                })
+                page_links.append({"text": str(tag.get_text(strip=True)), "link": href})
             else:
                 href = None
     else:

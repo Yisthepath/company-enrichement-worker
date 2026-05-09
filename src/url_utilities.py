@@ -84,7 +84,6 @@ def should_ignore_link(link):
     if not link:
         return True
 
-
     return link.startswith(IGNORED_LINK_PREFIXES)
 
 
@@ -130,14 +129,7 @@ def normalize_url(url):
     queries = remove_tracking_queries(parsed.query)
     fragment = ""
 
-    normalized_url = urlunparse((
-        scheme,
-        domain,
-        path,
-        parameters,
-        queries,
-        fragment
-    ))
+    normalized_url = urlunparse((scheme, domain, path, parameters, queries, fragment))
 
     return normalized_url
 
